@@ -1,7 +1,4 @@
 //
-//  dijkstra.cpp
-//  algorithm_poj
-//
 //  Created by 宁沛荣 on 2017/12/27.
 //  Copyright © 2017年 宁沛荣. All rights reserved.
 //
