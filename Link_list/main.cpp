@@ -73,6 +73,9 @@ void Insert(int x,List L,Position p)
     p->next = tempcell;
 }
 
+int main(){
+    return 0;
+}
 
 
 
