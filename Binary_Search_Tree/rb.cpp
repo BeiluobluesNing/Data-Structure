@@ -149,3 +149,34 @@ void rbtree<T>::leftRotate(_rbtreeNode<T> *p)
 	p->parent = t_r;
 
 }
+template <class T>
+void rbtree<T>::rightRotate(_rbtreeNode<T> *p){
+	_rbtreeNode<T> * t_left = p->left;
+	if(p->parent == nil)
+		root = p;
+	else{
+		if(p->parent->left == p)
+			p->parent->left = t_left;
+		else
+			p->parent->right = t_left;
+	}
+	t_left->parent = p->parent;
+	p->left = t_left->right;
+	t_left->right->parent = p;
+	t_left->right = p;
+	p->parent = t_left;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
