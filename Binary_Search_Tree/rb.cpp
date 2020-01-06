@@ -167,7 +167,33 @@ void rbtree<T>::rightRotate(_rbtreeNode<T> *p){
 	p->parent = t_left;
 
 }
-
+template <class T>
+void rbtree<T>::rbDelete(_rbtreeNode<T> *p){
+	_rbtreeNode<T> *suc_child = nil;
+	_rbtreeNode<T> *successor = nil;
+	if(p->left == nil || p->right == nil)
+		successor = p;
+	else 
+		successor = treeSuccessor(p);
+	if(successor->left != nil)
+		suc_child = successor->left;
+	else
+		suc_child = successor->right;
+	suc_child->parent = successor->parent;
+	if(successor->parent == nil)
+		root = suc_child;
+	else{
+		if(successor == successor->parent->left)
+			successor->parent->left = suc_child;
+		else
+			successor->parent->right = suc_child;
+	}
+	if(successor != p)
+		p->key = successor->key;
+	if(successor->color == false)
+		rbDeleteFixup(x);
+	delete successor;
+}
 
 
 
