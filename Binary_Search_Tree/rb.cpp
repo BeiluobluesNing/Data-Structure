@@ -224,7 +224,8 @@ void rbtree<T>::rightRotate(_rbtreeNode<T> *p){
 
 }
 template <class T>
-void rbtree<T>::rbDelete(_rbtreeNode<T> *p){
+void rbtree<T>::rbDelete(_rbtreeNode<T> *p)
+{
 	_rbtreeNode<T> *suc_child = nil;
 	_rbtreeNode<T> *successor = nil;
 	if(p->left == nil || p->right == nil)
@@ -250,6 +251,48 @@ void rbtree<T>::rbDelete(_rbtreeNode<T> *p){
 		rbDeleteFixup(x);
 	delete successor;
 }
+ template <class T>
+ void rbtree<T>::rbDeleteFixup(_rbtreeNode<T> *p)
+ {
+ 	while(p != root && p->color == false)
+ 	{
+ 		_rbtreeNode<T> *sibling = nil;
+ 		if(p->parent->left == p)
+ 		{
+ 			sibling = p->parent->right;
+ 			if(sibling->color == true)
+ 			{
+ 				sibling->color = false;
+ 				p->parent->color = true;
+ 				leftRotate(p->parent);
+ 				sibling = p->parent->right;
+ 			}
+ 			//兄弟子节点双黑
+ 			if(sibling->left->color == false && p->right->color == false)
+ 			{
+ 				//兄弟节点改红
+ 				sibling->color = true;
+ 				p = p->parent;
+ 			}
+ 			else{
+ 				//此时为\字型黑
+ 				if(sibling->right->color ==false)
+ 				{
+ 					sibling->left->color = false;
+ 					sibling->color = true;
+ 					rightRotate(sibling);
+ 					sibling = p->parent->right;
+ 				}
+ 				//>型的黑色侄子
+ 				sibling->color = p->parent->color;
+ 				p->parent->color = false;
+ 				sibling->right->color = false;
+ 				leftRotate(p->parent);
+ 				p = root;
+ 			}
+ 		}
+ 	}
+ }
 
 
 
